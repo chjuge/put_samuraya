@@ -9,25 +9,4 @@
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
   gap: 10px;
-  justify-items: stretch;
-
-}
-
-.header {
-grid-area: h;
-background-color: green;
-}
-
-.nav {
-grid-area: n;
-background-color: lightblue;
-}
-
-.content {
-grid-area: c;
-background-color: lime;
-}
-
-.header-img {
-  max-width: 100px;
 }
