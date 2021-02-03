@@ -1,10 +1,17 @@
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div>
-      <div>one div</div>
-      <div className="App">
+      <Header />
+      <Technologies />
+    </div>
+  )
+}
+
+const Technologies = () => {
+  return (
+      <div>
         <ul>
           <li>css</li>
           <li>html</li>
@@ -12,6 +19,15 @@ function App() {
           <li>react</li>
         </ul>
       </div>
+  );
+}
+
+const Header = () => {
+  return (
+    <div>
+      <a href='#s'>Home</a>
+      <a href='#s'>News Feed</a>
+      <a href='#s'>Messages</a>
     </div>
   );
 }
