@@ -3,7 +3,8 @@
     background-color: green;
     }
 
-.header-img {
+.header img {
         max-width: 100px;
+        border-radius: 60px;
     }
 
