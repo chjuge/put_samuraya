@@ -12,11 +12,12 @@ const MyPosts = () => {
             </div>
             <div className={s.posts}>
                 <div>
-                    <Post></Post>
+                    <Post message='Hi, how are you' likes='15'></Post>
+                    <Post message='It is my first post' likes='20'></Post>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default MyPosts;
