@@ -8,7 +8,7 @@ import News from './components/News/News';
 import Profile from './components/Profile/Profile.jsx';
 import Settings from './components/Settings/Settings';
 
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
