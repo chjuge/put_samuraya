@@ -5,7 +5,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo.jsx";
 const Profile = (props) => {
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo />
             <MyPosts
                 posts={props.profilePage.posts}
                 newPostText={props.profilePage.newPostText}
