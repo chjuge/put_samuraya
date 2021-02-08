@@ -19,13 +19,11 @@ const App = (props) => {
             path='/profile'
             render={() =>
               <Profile
-                profilePage={props.state.profilePage}
-                dispatch={props.dispatch} />} />
+              store={props.store}/>} />
 
           <Route
             path='/dialogs'
             render={() => <Dialogs 
-            dispatch={props.dispatch}
             store={props.store}/>} />
           <Route
             path='/news'
