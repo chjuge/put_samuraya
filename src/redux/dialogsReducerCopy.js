@@ -1,4 +1,4 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const CURRENT_VALUE_TEXT_AREA = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 let initialState = {
@@ -27,7 +27,7 @@ const dialogsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case UPDATE_NEW_MESSAGE_BODY:
+        case CURRENT_VALUE_TEXT_AREA:
             state.dialogsPage.newMessageBody = action.body;
             return state;
 
@@ -46,4 +46,4 @@ const dialogsReducer = (state = initialState, action) => {
 export default dialogsReducer;
 
 export const sendMessageCreator = () => ({ type: SEND_MESSAGE });
-export const updateNewMessageBodyCreator = (body) => ({ type: UPDATE_NEW_MESSAGE_BODY, body: body });
+export const updateNewMessageBodyCreator = (body) => ({ type: CURRENT_VALUE_TEXT_AREA, body: body });

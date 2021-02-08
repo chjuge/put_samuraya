@@ -1,5 +1,5 @@
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const CURRENT_VALUE_TEXT_AREA = 'UPDATE-NEW-POST-TEXT';
 
 let initialState = {
     profilePage: {
@@ -7,7 +7,7 @@ let initialState = {
             { id: 1, message: 'Hi! Hi, how are you?', likes: 15 },
             { id: 2, message: 'It is my first post', likes: 40 }
         ],
-        newPostText: 'it-kamasutra.huy'
+        newPostText: ''
     }
 }
 
@@ -22,9 +22,9 @@ const profileReducer = (state = initialState, action) => {
             };
             state.profilePage.posts.push(newPost);
             state.profilePage.newPostText = '';
-            return state
+            return state;
         }
-        case UPDATE_NEW_POST_TEXT:
+        case CURRENT_VALUE_TEXT_AREA:
             state.profilePage.newPostText = action.newText;
             return state;
 
@@ -35,4 +35,4 @@ const profileReducer = (state = initialState, action) => {
 export default profileReducer;
 
 export const addPostActionCreator = () => ({ type: ADD_POST });
-export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
+export const updateNewPostTextActionCreator = (text) => ({ type: CURRENT_VALUE_TEXT_AREA, newText: text })
