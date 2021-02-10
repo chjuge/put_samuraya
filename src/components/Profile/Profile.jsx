@@ -1,5 +1,4 @@
-import store from "../../redux/redux-store.js";
-import MyPosts from "./MyPosts/MyPosts.jsx";
+import MyPostsContainer from "./MyPosts/MyPostsContainer.jsx";
 import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo.jsx";
 
@@ -7,9 +6,8 @@ const Profile = (props) => {
     return (
         <div>
             <ProfileInfo />
-            <MyPosts
+            <MyPostsContainer
                 state={props.store.getState().profileReducer}
-                getS={props.store.getState}
                 dispatch={props.store.dispatch} />
         </div>
     );
