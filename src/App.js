@@ -5,8 +5,9 @@ import Header from './components/Header/Header.jsx';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar.jsx';
 import News from './components/News/News';
- import Profile from './components/Profile/Profile.jsx';
+import Profile from './components/Profile/Profile.jsx';
 import Settings from './components/Settings/Settings';
+import UsersContainer from './components/Users/UsersContainer';
 
 const App = (props) => {
   return (
@@ -16,10 +17,10 @@ const App = (props) => {
       <div className='app-wrapper-content'>
         <Route
           path='/profile'
-          render={() => <Profile store={props.store} />} />
+          render={() => <Profile />} />
         <Route
           path='/dialogs'
-          render={() => <DialogsContainer store={props.store} />} />
+          render={() => <DialogsContainer />} />
         <Route
           path='/news'
           render={() => <News />} />
@@ -29,6 +30,9 @@ const App = (props) => {
         <Route
           path='/settings'
           render={() => <Settings />} />
+        <Route
+          path='/users'
+          render={() => <UsersContainer />} />
       </div>
     </div>
   );
