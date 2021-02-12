@@ -1,22 +1,29 @@
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const CURRENT_VALUE_TEXT_AREA = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state, action) => {
+let initialState = {
+    posts: [
+        { id: 1, message: 'Hi! Hi, how are you?', likes: 15 },
+        { id: 2, message: 'It is my first post', likes: 40 }
+    ],
+    newPostText: ''
+}
+
+const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST: {
-            let newPost = {
-                id: 5,
-                message: state.newPostText,
-                likes: 0
+            return {
+                ...state,
+                posts: [...state.posts, { id: Object.keys(state.posts).length + 1, message: state.newPostText, likes: 0 }],
+                newPostText: ''
             };
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state
         }
-        case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
+        case CURRENT_VALUE_TEXT_AREA:
+            return {
+                ...state,
+                newPostText: action.newText
+            };
 
         default: return state;
 
@@ -25,4 +32,4 @@ const profileReducer = (state, action) => {
 export default profileReducer;
 
 export const addPostActionCreator = () => ({ type: ADD_POST });
-export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
+export const updateNewPostTextActionCreator = (text) => ({ type: CURRENT_VALUE_TEXT_AREA, newText: text })

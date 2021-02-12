@@ -5,7 +5,7 @@ import Header from './components/Header/Header.jsx';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar.jsx';
 import News from './components/News/News';
-import Profile from './components/Profile/Profile.jsx';
+ import Profile from './components/Profile/Profile.jsx';
 import Settings from './components/Settings/Settings';
 
 const App = (props) => {

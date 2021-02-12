@@ -6,9 +6,7 @@ const Profile = (props) => {
     return (
         <div>
             <ProfileInfo />
-            <MyPostsContainer
-                state={props.store.getState().profileReducer}
-                dispatch={props.store.dispatch} />
+            <MyPostsContainer/>
         </div>
     );
 }

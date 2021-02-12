@@ -1,34 +1,30 @@
 import React from 'react';
 import Post from './Post/Post.jsx';
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profileReducerCopy.js';
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profileReducer.js';
 import MyPosts from './MyPosts.jsx';
+import { connect } from 'react-redux';
 
+let newPostElement = React.createRef();
 
-const MyPostsContainer = (props) => {
-    let postElements = props.state.profilePage.posts.map(p => <Post message={p.message} likes={p.likes} />);
-
-    let newPostElement = React.createRef();
-
-    let addPost = () => {
-        props.dispatch(addPostActionCreator()); // dispatch('ADD-POST')
+const mapState = (state) => {
+    return {
+        newPostElement: newPostElement,
+        valueTextArea: state.profileReducer.newPostText,
+        postElements: state.profileReducer.posts.map(p => <Post message={p.message} likes={p.likes} />),
     }
-
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.dispatch(updateNewPostTextActionCreator(text)); //dispatch('UPDATE-NEW-POST-TEXT', text)
-    }
-
-    let value=props.state.profilePage.newPostText;
-
-    return (
-        <MyPosts 
-        newPostElement={newPostElement}
-        onPostChange={onPostChange}
-        valueTextArea={value}
-        addPost={addPost}
-        postElements={postElements}
-        />
-    );
 }
+
+const mapDispatch = (dispatch) => {
+    return {
+        addPost: () => {
+            dispatch(addPostActionCreator());
+        },
+        onPostChange: () => {
+            dispatch(updateNewPostTextActionCreator(newPostElement.current.value))
+        }
+    }
+}
+
+const MyPostsContainer = connect(mapState, mapDispatch)(MyPosts);
 
 export default MyPostsContainer;
