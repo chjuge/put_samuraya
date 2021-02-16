@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { followAC, unfollowAC, setUsersAC, setCurrentPageAC, setTotalUsersCountAC, setToggleIsFethcingAC } from "../../redux/usersPage"
+import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFethcing } from "../../redux/usersPage"
 import Users from "./UsersCopy"
 import axios from 'axios';
 import React from 'react';
@@ -58,27 +58,14 @@ const mapToState = (state) => {
     }
 }
 
-const mapToDispatch = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId));
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setTotalUsersCount: (totalUsersCount) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount));
-        },
-        setToggleIsFethcing: (isFetching) => {
-            dispatch(setToggleIsFethcingAC(isFetching));
-        }
-    }
-}
 
-export default connect(mapToState, mapToDispatch)(UserAPIcontainer);
+
+export default connect(mapToState,
+    {
+        follow,
+        unfollow,
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        setToggleIsFethcing
+    })(UserAPIcontainer);
