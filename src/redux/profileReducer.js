@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/Api";
+
 let initialState = {
     profile: null,
     posts: [
@@ -42,3 +44,10 @@ export const addPostActionCreator = () => ({ type: 'ADD-POST' });
 export const updateNewPostTextActionCreator = (text) => ({ type: 'UPDATE-NEW-POST-TEXT', newText: text });
 export const setToggleIsFethcing = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', isFetching });
 export const setUserProfile = (profile) => ({ type: 'SET-USER-PROFILE', profile });
+export const getUserProfile = (userId) => (dispatch) => {
+    dispatch(setToggleIsFethcing(true))
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data));
+        dispatch(setToggleIsFethcing(false));
+    })
+}
