@@ -10,7 +10,8 @@ const mapState = (state) => {
     return {
         dialogsElements: state.dialogsReducer.dialogs.map(d => <DialogItem name={d.name} id={d.id} />),
         messagesElements: state.dialogsReducer.messages.map(m => <Message message={m.message} id={m.id} />),
-        newMessageBody: state.dialogsReducer.newMessageBody
+        newMessageBody: state.dialogsReducer.newMessageBody,
+        isAuth: state.auth.isAuth
     }
 };
 

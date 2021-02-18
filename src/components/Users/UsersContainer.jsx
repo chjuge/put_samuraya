@@ -3,6 +3,7 @@ import {  setCurrentPage, ToggleFollowingProgress, getUsers, unfollowOnClick, fo
 import Users from "./Users"
 import React from 'react';
 import preloader from "../../assets/images/loading.svg";
+import { Redirect } from "react-router-dom";
 
 
 class UserAPIcontainer extends React.Component {
@@ -19,6 +20,8 @@ class UserAPIcontainer extends React.Component {
 
 
     render() {
+        if (this.props.isAuth === false) return <Redirect to='/login'/>
+
         return <>
             {this.props.isFetching ? <img src={preloader} width='80px' /> : null}
             <Users
@@ -47,10 +50,8 @@ const mapToState = (state) => {
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
         followOnClick: state.usersPage.followOnClick,
-        unfollowOnClick: state.usersPage.unfollowOnClick
-
-
-
+        unfollowOnClick: state.usersPage.unfollowOnClick,
+        isAuth: state.auth.isAuth
     }
 }
 

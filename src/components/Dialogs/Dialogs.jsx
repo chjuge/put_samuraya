@@ -1,7 +1,9 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import s from './Dialogs.module.css';
 
 const Dialogs = (props) => {
+    if (props.isAuth === false) return <Redirect to='/login'/>
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
