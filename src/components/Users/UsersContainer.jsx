@@ -1,37 +1,36 @@
 import { connect } from "react-redux"
-import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFethcing } from "../../redux/usersPage"
-import Users from "./UsersCopy"
-import axios from 'axios';
+import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFethcing, ToggleFollowingProgress } from "../../redux/usersPage"
+import Users from "./Users"
 import React from 'react';
 import preloader from "../../assets/images/loading.svg";
+import { usersAPI } from "../../api/Api";
 
 
 class UserAPIcontainer extends React.Component {
 
     componentDidMount() {
         this.props.setToggleIsFethcing(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setToggleIsFethcing(false);
-                this.props.setTotalUsersCount(response.data.totalCount);
-            });
+
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items);
+            this.props.setToggleIsFethcing(false);
+            this.props.setTotalUsersCount(data.totalCount);
+        });
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.setToggleIsFethcing(true);
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setToggleIsFethcing(false);
+        this.props.setToggleIsFethcing(true);
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items);
+            this.props.setToggleIsFethcing(false);
 
-            });
+        });
     }
 
     render() {
         return <>
-            {this.props.isFetching ? <img src={preloader} /> : null}
+            {this.props.isFetching ? <img src={preloader} width='80px'/> : null}
             <Users
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
@@ -41,6 +40,9 @@ class UserAPIcontainer extends React.Component {
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 isFetching={this.props.isFetching}
+                followingInProgress={this.props.followingInProgress}
+                ToggleFollowingProgress={this.props.ToggleFollowingProgress}
+                setUsers={this.props.setUsers}
             />
         </>
     }
@@ -53,8 +55,8 @@ const mapToState = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
-
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     }
 }
 
@@ -67,5 +69,6 @@ export default connect(mapToState,
         setUsers,
         setCurrentPage,
         setTotalUsersCount,
-        setToggleIsFethcing
+        setToggleIsFethcing,
+        ToggleFollowingProgress
     })(UserAPIcontainer);

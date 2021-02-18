@@ -3,7 +3,8 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 };
 
 const usersPage = (state = initialState, action) => {
@@ -36,9 +37,18 @@ const usersPage = (state = initialState, action) => {
         }
         case 'SET-TOTAL-USERS-COUNT':
             return { ...state, totalUsersCount: (action.totalUsersCount === 100 ? action.totalUsersCount : 100) }
+            
         case 'TOGGLE-IS-FETCHING': {
             return {
                 ...state, isFetching: action.isFetching
+            }
+        }
+        case 'TOGGLE-IS-FOLLOWING-PROGRESS': {
+            return {
+                ...state, 
+                followingInProgress: action.isFetching 
+                ?[...state.followingInProgress, action.userId] 
+                :state.followingInProgress.filter(id => id !== action.userId)
             }
         }
         default:
@@ -52,4 +62,5 @@ export const setUsers = (users) => ({ type: 'SET-USERS', users })
 export const setCurrentPage = (currentPage) => ({ type: 'SET-CURRENT-PAGE', currentPage })
 export const setTotalUsersCount = (totalUsersCount) => ({ type: 'SET-TOTAL-USERS-COUNT', totalUsersCount })
 export const setToggleIsFethcing = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', isFetching })
+export const ToggleFollowingProgress = (isFetching, userId) => ({ type: 'TOGGLE-IS-FOLLOWING-PROGRESS', isFetching , userId})
 export default usersPage;
