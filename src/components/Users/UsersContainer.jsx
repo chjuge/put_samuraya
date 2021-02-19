@@ -3,7 +3,7 @@ import {  setCurrentPage, ToggleFollowingProgress, getUsers, unfollowOnClick, fo
 import Users from "./Users"
 import React from 'react';
 import preloader from "../../assets/images/loading.svg";
-import { Redirect } from "react-router-dom";
+import { withAuthRedirect } from "../hoc/withAuthRedirect";
 
 
 class UserAPIcontainer extends React.Component {
@@ -20,8 +20,6 @@ class UserAPIcontainer extends React.Component {
 
 
     render() {
-        if (this.props.isAuth === false) return <Redirect to='/login'/>
-
         return <>
             {this.props.isFetching ? <img src={preloader} width='80px' /> : null}
             <Users
@@ -51,11 +49,10 @@ const mapToState = (state) => {
         followingInProgress: state.usersPage.followingInProgress,
         followOnClick: state.usersPage.followOnClick,
         unfollowOnClick: state.usersPage.unfollowOnClick,
-        isAuth: state.auth.isAuth
     }
 }
 
-
+let AuthRedirectComponent=withAuthRedirect(UserAPIcontainer)
 
 export default connect(mapToState,
     {
@@ -64,4 +61,4 @@ export default connect(mapToState,
         getUsers,
         unfollowOnClick,
         followOnClick
-    })(UserAPIcontainer);
+    })(AuthRedirectComponent);

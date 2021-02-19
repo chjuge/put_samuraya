@@ -4,6 +4,7 @@ import Message from './Message/Message.jsx';
 import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/dialogsReducer';
 import Dialogs from './Dialogs.jsx';
 import { connect } from 'react-redux';
+import { withAuthRedirect } from '../hoc/withAuthRedirect.js';
 
 
 const mapState = (state) => {
@@ -11,7 +12,6 @@ const mapState = (state) => {
         dialogsElements: state.dialogsReducer.dialogs.map(d => <DialogItem name={d.name} id={d.id} />),
         messagesElements: state.dialogsReducer.messages.map(m => <Message message={m.message} id={m.id} />),
         newMessageBody: state.dialogsReducer.newMessageBody,
-        isAuth: state.auth.isAuth
     }
 };
 
@@ -26,6 +26,8 @@ const mapDispatch = (dispatch) => {
     }
 };
 
-const DialogsContainer = connect(mapState, mapDispatch)(Dialogs);
+let AuthRedirectComponent= withAuthRedirect(Dialogs)
+
+const DialogsContainer = connect(mapState, mapDispatch)(AuthRedirectComponent);
 
 export default DialogsContainer;

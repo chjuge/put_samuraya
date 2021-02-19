@@ -2,7 +2,8 @@ import React from 'react';
 import Profile from "./Profile.jsx";
 import { connect } from 'react-redux';
 import { setToggleIsFethcing, getUserProfile } from "../../redux/profileReducer";
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { withAuthRedirect } from '../hoc/withAuthRedirect.js';
 
 class ProfileContainer extends React.Component {
 
@@ -15,19 +16,19 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        if (this.props.isAuth === false) return <Redirect to='/login'/>
-
         return (
             <Profile {...this.props} profile={this.props.profile} />
         )
     }
 }
+
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+
 let mapStateToProps = (state) => ({
     profile: state.profileReducer.profile,
-    isAuth: state.auth.isAuth
 });
 
-let WithUrlContainerComponent = withRouter(ProfileContainer)
+let WithUrlContainerComponent = withRouter(AuthRedirectComponent)
 
 export default connect(mapStateToProps,
     { getUserProfile, setToggleIsFethcing })(WithUrlContainerComponent);
