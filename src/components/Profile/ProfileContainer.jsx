@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { setToggleIsFethcing, getUserProfile } from "../../redux/profileReducer";
 import { withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../hoc/withAuthRedirect.js';
+import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
 
@@ -22,13 +23,15 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 
 let mapStateToProps = (state) => ({
     profile: state.profileReducer.profile,
 });
 
-let WithUrlContainerComponent = withRouter(AuthRedirectComponent)
 
-export default connect(mapStateToProps,
-    { getUserProfile, setToggleIsFethcing })(WithUrlContainerComponent);
+export default compose(
+    connect(mapStateToProps,
+        { getUserProfile, setToggleIsFethcing }),
+    withRouter,
+    withAuthRedirect)
+    (ProfileContainer);

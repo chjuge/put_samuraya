@@ -1,9 +1,10 @@
 import { connect } from "react-redux"
-import {  setCurrentPage, ToggleFollowingProgress, getUsers, unfollowOnClick, followOnClick } from "../../redux/usersPage"
+import { setCurrentPage, ToggleFollowingProgress, getUsers, unfollowOnClick, followOnClick } from "../../redux/usersPage"
 import Users from "./Users"
 import React from 'react';
 import preloader from "../../assets/images/loading.svg";
 import { withAuthRedirect } from "../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 
 class UserAPIcontainer extends React.Component {
@@ -52,13 +53,14 @@ const mapToState = (state) => {
     }
 }
 
-let AuthRedirectComponent=withAuthRedirect(UserAPIcontainer)
 
-export default connect(mapToState,
-    {
-        setCurrentPage,
-        ToggleFollowingProgress,
-        getUsers,
-        unfollowOnClick,
-        followOnClick
-    })(AuthRedirectComponent);
+export default compose(
+    connect(mapToState,
+        {
+            setCurrentPage,
+            ToggleFollowingProgress,
+            getUsers,
+            unfollowOnClick,
+            followOnClick
+        }),
+    withAuthRedirect)(UserAPIcontainer)
