@@ -9,10 +9,10 @@ https://www.youtube.com/playlist?list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8
 
 ### Используемые библиотеки на проекте:
 
-React
-Redux
-React-redux
-redux-thunk
+React,
+Redux,
+React-redux,
+redux-thunk,
 react-router-dom
 
 ### Редактор кода, который использовался:
