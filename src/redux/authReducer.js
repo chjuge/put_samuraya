@@ -1,4 +1,4 @@
-import { usersAPI } from "../api/Api"
+import { authAPI } from "../api/Api"
 
 let initialState = {
     userId: null,
@@ -28,7 +28,7 @@ export default authReducer;
 
 export const logginIn = () => (dispatch) =>
 {
-    usersAPI.authMe().then(response => {
+    authAPI.me().then(response => {
         if (response.data.resultCode === 0) {
             let { id, login, email } = response.data.data
             dispatch(setUserData(id, email, login))

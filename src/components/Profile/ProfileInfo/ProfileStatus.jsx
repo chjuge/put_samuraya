@@ -1,6 +1,4 @@
 import React from 'react'
-import s from './ProfileInfo.module.css';
-import userPhoto from '../../../assets/images/userIcon.jpg';
 
 
 class ProfileStatus extends React.Component {
@@ -11,13 +9,21 @@ class ProfileStatus extends React.Component {
 
     activateEditMode = () =>  {
         this.setState( {
-            editMode: true
+            editMode: true,
+            status: this.props.status
         })
     }
 
-    deactivateEditMode = () =>  {
+    deactivateEditMode = () =>  {  
         this.setState( {
             editMode: false
+        })
+        this.props.updateStatus()
+    }
+
+    onStatusChange = (e) => {
+        this.setState( {
+            status: e.currentTarget.value
         })
     }
 
@@ -26,12 +32,14 @@ class ProfileStatus extends React.Component {
             <div>
                 {!this.state.editMode &&
                     <div >
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || '------'}</span>
                     </div>
                 }
                 {this.state.editMode &&
                     <div>
-                        <input autoFocus={true} onBlur={this.deactivateEditMode} type="text" value={this.props.status} />
+                        <input 
+                        autoFocus={true} onBlur={this.deactivateEditMode} type="text" 
+                        value={this.state.status} onChange={this.onStatusChange} />
                     </div>
                 }
             </div>

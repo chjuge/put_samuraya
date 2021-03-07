@@ -1,4 +1,4 @@
-import { usersAPI } from "../api/Api";
+import { profileAPI } from "../api/Api";
 
 let initialState = {
     profile: null,
@@ -7,7 +7,8 @@ let initialState = {
         { id: 2, message: 'It is my first post', likes: 40 }
     ],
     newPostText: '',
-    isFetching: false
+    isFetching: false,
+    status: ''
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -28,8 +29,13 @@ const profileReducer = (state = initialState, action) => {
             };
 
         case 'SET-USER-PROFILE':
-            return { ...state, profile: action.profile }
-
+            return {
+                ...state, profile: action.profile
+            }
+        case 'SET-STATUS':
+            return {
+                ...state, status: action.status
+            }
         case 'TOGGLE-IS-FETCHING':
             return {
                 ...state, isFetching: action.isFetching
@@ -44,10 +50,25 @@ export const addPostActionCreator = () => ({ type: 'ADD-POST' });
 export const updateNewPostTextActionCreator = (text) => ({ type: 'UPDATE-NEW-POST-TEXT', newText: text });
 export const setToggleIsFethcing = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', isFetching });
 export const setUserProfile = (profile) => ({ type: 'SET-USER-PROFILE', profile });
+export const setSatus = (status) => ({ type: 'SET-STATUS', status });
+
 export const getUserProfile = (userId) => (dispatch) => {
     dispatch(setToggleIsFethcing(true))
-    usersAPI.getProfile(userId).then(response => {
+    profileAPI.getProfile(userId).then(response => {
         dispatch(setUserProfile(response.data));
         dispatch(setToggleIsFethcing(false));
+    })
+}
+
+export const getStatus = (userId) => (dispatch) => {
+    profileAPI.getStatus(userId).then(response => {
+        dispatch(setSatus(response.data));
+    })
+}
+
+export const updateStatus = (status) => (dispatch) => {
+    profileAPI.updateStatus(status).then(response => {
+        if (response.data.resultCode === 1)
+            dispatch(setSatus(status));
     })
 }
