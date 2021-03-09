@@ -16,8 +16,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
     return {
-        addPost: () => {
-            dispatch(addPostActionCreator());
+        addPost: (newPostText) => {
+            dispatch(addPostActionCreator(newPostText));
         },
         onPostChange: () => {
             dispatch(updateNewPostTextActionCreator(newPostElement.current.value))

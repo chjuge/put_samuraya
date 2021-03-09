@@ -6,9 +6,9 @@ let initialState = {
         { id: 1, message: 'Hi! Hi, how are you?', likes: 15 },
         { id: 2, message: 'It is my first post', likes: 40 }
     ],
-    newPostText: '',
     isFetching: false,
-    status: ''
+    status: '',
+    newPostText: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -17,8 +17,7 @@ const profileReducer = (state = initialState, action) => {
         case 'ADD-POST': {
             return {
                 ...state,
-                posts: [...state.posts, { id: Object.keys(state.posts).length + 1, message: state.newPostText, likes: 0 }],
-                newPostText: ''
+                posts: [...state.posts, { id: Object.keys(state.posts).length + 1, message: action.newPostText, likes: 0 }],
             };
         }
 
@@ -46,7 +45,7 @@ const profileReducer = (state = initialState, action) => {
 }
 export default profileReducer;
 
-export const addPostActionCreator = () => ({ type: 'ADD-POST' });
+export const addPostActionCreator = (newPostText) => ({ type: 'ADD-POST', newPostText});
 export const updateNewPostTextActionCreator = (text) => ({ type: 'UPDATE-NEW-POST-TEXT', newText: text });
 export const setToggleIsFethcing = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', isFetching });
 export const setUserProfile = (profile) => ({ type: 'SET-USER-PROFILE', profile });
