@@ -71,7 +71,8 @@ export const getUsers = (currentPage, pageSize) => {
 
     return (dispatch) => {
 
-        setToggleIsFethcing(true);
+        dispatch(setToggleIsFethcing(true));
+        dispatch(setCurrentPage(currentPage))
 
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(setToggleIsFethcing(false));
