@@ -1,3 +1,5 @@
+import { createSelector } from "reselect"
+
 export const getUsersSelector = state => {
     return state.usersPage.users
 }
@@ -28,4 +30,17 @@ export const getFollowOnClick = state => {
 
 export const getUnfollowOnClick = state => {
     return state.usersPage.unfollowOnClick
+}
+
+export const getUsers = state => {
+    return state.usersPage.users
+}
+
+
+export const getUsersSuperSelector = createSelector(getUsers, (users) => {
+    return users.filter(u => true)
+})
+
+export const getUsersSuper = state => {
+    getUsers(state).filter(u => true)
 }

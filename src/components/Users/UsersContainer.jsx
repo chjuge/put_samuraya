@@ -5,7 +5,7 @@ import React from 'react';
 import preloader from "../../assets/images/loading.svg";
 import { withAuthRedirect } from "../hoc/withAuthRedirect";
 import { compose } from "redux";
-import { getCurrentPage, getFollowingInProgress, getFollowOnClick, getIsFetching, getPageSize, getTotalUsersCount, getUnfollowOnClick, getUsersSelector } from '../../redux/usersSelectors'
+import { getCurrentPage, getFollowingInProgress, getFollowOnClick, getIsFetching, getPageSize, getTotalUsersCount, getUnfollowOnClick, getUsersSelector, getUsersSuper, getUsersSuperSelector } from '../../redux/usersSelectors'
 
 
 class UserAPIcontainer extends React.Component {
@@ -43,7 +43,8 @@ class UserAPIcontainer extends React.Component {
 
 const mapToState = (state) => {
     return {
-        users: getUsersSelector(state),
+//        users: getUsersSelector(state),
+        users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
